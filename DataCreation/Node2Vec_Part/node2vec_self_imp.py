@@ -5,7 +5,7 @@ from node2vec import Node2Vec
 
 def getEmbedding(G):
     # Precompute probabilities and generate walks
-    node2vec = Node2Vec(G, dimensions=16, walk_length=10, num_walks=75, workers=4)
+    node2vec = Node2Vec(G, dimensions=30, walk_length=10, num_walks=40, workers=4)
 
     # Embed nodes
     model = node2vec.fit(window=5, min_count=1, batch_words=4)
