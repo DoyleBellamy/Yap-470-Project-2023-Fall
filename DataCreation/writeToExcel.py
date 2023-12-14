@@ -15,16 +15,4 @@ def writeToExcel(embeddings):
     else:
         df.to_excel(excel_file_path, index=False)
 
-def generateData():
-    df=[]
-    print(len(df))
-    i = 0
-    for i in range(4):
-        # Burada olabilecek tum graph cesitlerini koyup ayri ayri deneyecegiz"
-        graphEmbedding = yesLabeledEmbedding(totalNumberOfNodes= 100, edgesBetweenPartitions=3)
-        if i == 0:
-            df = graphEmbedding
-        else : 
-            df = np.vstack((df, graphEmbedding))
-    writeToExcel(df)
 

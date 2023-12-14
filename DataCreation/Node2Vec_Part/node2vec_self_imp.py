@@ -2,7 +2,6 @@
 import networkx as nx
 from node2vec import Node2Vec
 
-
 def getEmbedding(G):
     # Precompute probabilities and generate walks
     node2vec = Node2Vec(G, dimensions=30, walk_length=10, num_walks=40, workers=4)
