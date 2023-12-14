@@ -29,9 +29,9 @@ def generate_planar_graph(nodes, edges):
 
 # Number 8
 # Tree-like Graph 
-def generate_tree_graph(height, branches=2):
+def generate_tree_graph(nodes):
     # Create a tree graph with the specified number of nodes and branching factor
-    G = nx.generators.classic.balanced_tree(branches, height)
+    G = nx.generators.trees.random_tree(nodes, 47)
     return G
 
 # Number 9

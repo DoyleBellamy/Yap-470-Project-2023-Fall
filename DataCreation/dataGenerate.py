@@ -65,8 +65,6 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
     seed = rand.randint(1,1000000)
     numberOfNodes = rand.randint(numberOfNodesLowest,numberOfNodesHighest)
     
-    
-    '''
     # Number 1 yesLabeledGraph
     # TODO Burada edges between partition'a da random'lık ekle
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH*4
@@ -79,8 +77,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
         else : 
             df = np.vstack((df, graphEmbedding))
         i = i-1
-    '''
-    '''
+
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH    
     # Number 2 watts_strogatz
     while i>0:
@@ -106,8 +103,8 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
                 df = graphEmbedding
             else : 
                 df = np.vstack((df, graphEmbedding))
-    '''
-    '''
+
+
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
     # Number 3 Barabasi 
     while i>0:
@@ -175,8 +172,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             else : 
                 df = np.vstack((df, graphEmbedding))
 
-    '''
-    '''
+   
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
     # Number 6 Planar_graph
     while i>0:
@@ -202,19 +198,15 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
     # Number 7 Tree-like_graph
     while i>0:
-        maxHeight = 5
-        minHeight = 2
-        maxBranch = 5
-        minBranch = 2
-        height = rand.randint(int(minHeight),int(maxHeight))
-        numberOfBranches = rand.randint(int(minBranch),int(maxBranch))
-        G = dg.generate_tree_graph(height=height,branches=numberOfBranches)
+        max = 4
+        min = 1
+        numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
+        G = dg.generate_tree_graph(numberOfNodes)
         print(nx.number_of_edges(G))
         print(nx.number_of_nodes(G))
         while not nx.is_connected(G):
-            height = rand.randint(int(minHeight),int(maxHeight))
-            numberOfBranches = rand.randint(int(minBranch),int(maxBranch))
-            G = dg.generate_tree_graph(height=height,branches=numberOfBranches)
+            numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
+            G = dg.generate_tree_graph(numberOfNodes)
 
         totalNumberOfIteration = 10
         didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
@@ -224,7 +216,55 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
                 df = graphEmbedding
             else : 
                 df = np.vstack((df, graphEmbedding))
+    '''
+    
+    i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
+    # Number 9 Square Grid Graph
+    while i>0:
+        max = 8
+        min = 3
+        numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
+        columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
+        G = dg.generate_square_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
+        print(nx.number_of_edges(G))
+        print(nx.number_of_nodes(G))
+        while not nx.is_connected(G):
+            numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
+            columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
+            G = dg.generate_square_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
 
+        totalNumberOfIteration = 10
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        if didItBecomeConnected and len(graphEmbedding)>0:
+            i = i-1
+            if len(df) == 0:
+                df = graphEmbedding
+            else : 
+                df = np.vstack((df, graphEmbedding))
+    
+    # Number 10 Triangular Grid Graph
+    i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
+    while i>0:
+        max = 8
+        min = 3
+        numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
+        columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
+        G = dg.generate_triangular_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
+        print(nx.number_of_edges(G))
+        print(nx.number_of_nodes(G))
+        while not nx.is_connected(G):
+            numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
+            columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
+            G = dg.generate_triangular_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
+
+        totalNumberOfIteration = 10
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        if didItBecomeConnected and len(graphEmbedding)>0:
+            i = i-1
+            if len(df) == 0:
+                df = graphEmbedding
+            else : 
+                df = np.vstack((df, graphEmbedding))
 
 
     writeToExcel(df)
