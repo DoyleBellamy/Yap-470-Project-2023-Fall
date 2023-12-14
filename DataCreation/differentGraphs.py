@@ -27,35 +27,11 @@ def generate_planar_graph(nodes, edges):
     G = nx.gnm_random_graph(n=nodes, m=edges)
     return G
 
-# Number 6
-# Euler Graph 
-def generate_euler_graph(nodes, edges):
-    
-    # Euler graphs require an even number of nodes
-    if nodes % 2 != 0:
-        return None
-
-    # Generate an Euler graph with the specified number of nodes and edges
-    G = nx.random_eulerian_graph(nodes, edges)
-    return G
-
-# Number 7
-# Hamiltonian Graph 
-def generate_hamiltonian_graph(nodes):
-    
-    # Hamiltonian graphs must have at least 3 nodes
-    if nodes < 3:
-        return None
-
-    # Generate a Hamiltonian graph with the specified number of nodes
-    G = nx.hamiltonian_graph(nodes)
-    return G
-
 # Number 8
 # Tree-like Graph 
-def generate_tree_graph(nodes, branches=2):
+def generate_tree_graph(height, branches=2):
     # Create a tree graph with the specified number of nodes and branching factor
-    G = nx.generators.classic.balanced_tree(branches, nodes)
+    G = nx.generators.classic.balanced_tree(branches, height)
     return G
 
 # Number 9

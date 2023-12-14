@@ -177,7 +177,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
                 df = np.vstack((df, graphEmbedding))
 
     '''
-
+    '''
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
     # Number 6 Planar_graph
     while i>0:
@@ -190,6 +190,32 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             numberOfNodes = rand.randint(numberOfNodesLowest,numberOfNodesHighest)
             numberOfEdges = rand.randint(int(numberOfNodes*1.15),int(numberOfNodes*1.3))
             G = dg.generate_planar_graph(nodes=numberOfNodes,edges=numberOfEdges)
+
+        totalNumberOfIteration = 10
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        if didItBecomeConnected and len(graphEmbedding)>0:
+            i = i-1
+            if len(df) == 0:
+                df = graphEmbedding
+            else : 
+                df = np.vstack((df, graphEmbedding))
+    '''
+    i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
+    # Number 7 Tree-like_graph
+    while i>0:
+        maxHeight = 5
+        minHeight = 2
+        maxBranch = 5
+        minBranch = 2
+        height = rand.randint(int(minHeight),int(maxHeight))
+        numberOfBranches = rand.randint(int(minBranch),int(maxBranch))
+        G = dg.generate_tree_graph(height=height,branches=numberOfBranches)
+        print(nx.number_of_edges(G))
+        print(nx.number_of_nodes(G))
+        while not nx.is_connected(G):
+            height = rand.randint(int(minHeight),int(maxHeight))
+            numberOfBranches = rand.randint(int(minBranch),int(maxBranch))
+            G = dg.generate_tree_graph(height=height,branches=numberOfBranches)
 
         totalNumberOfIteration = 10
         didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
