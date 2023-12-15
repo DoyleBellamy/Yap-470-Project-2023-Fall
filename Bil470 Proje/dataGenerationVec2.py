@@ -120,21 +120,24 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             else : 
                 df = np.vstack((df, graphEmbedding))
     
-    
+    '''
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
     # Number 9 Square Grid Graph
     while i>0:
-        max = 8
-        min = 3
-        numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
-        columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
-        G = dg.generate_square_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
+        max = 1.3
+        min = 0.8
+        numberOfNodes = rand.randint(int(min numberOfNodesLowest),int(maxnumberOfNodesHighest))
+        columnAndRow = int(np.sqrt(numberOfNodes))
+        G = dg.generate_square_grid_graph(rows=columnAndRow,columns=columnAndRow)
+        print(nx.number_of_edges(G))
+        print(nx.number_of_nodes(G))
         while not nx.is_connected(G):
-            numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
-            columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
-            G = dg.generate_square_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
+            numberOfNodes = rand.randint(int(min numberOfNodesLowest ),int(maxnumberOfNodesHighest))
+            columnAndRow = int(np.sqrt(numberOfNodes))
+            G = dg.generate_square_grid_graph(rows=columnAndRow,columns=columnAndRow)
 
         graphEmbedding = KernighanLinIterationAndEmbedding(G)
+        
         if len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
@@ -162,7 +165,8 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
                 df = graphEmbedding
             else : 
                 df = np.vstack((df, graphEmbedding))
-
+    '''
+    
     writeToExcel(df)
     
     

@@ -50,7 +50,9 @@ def KernighanLinIterationAndEmbedding(G):
         totalNumberOfIteration = 0.4 * total_vertices * np.log10(total_vertices)
     else:
         totalNumberOfIteration = total_vertices * np.log10(total_vertices)
-        
+    
+    totalNumberOfIteration = int(totalNumberOfIteration)
+    
     #for j in range(totalNumberOfIteration):
     partition = kernighan_lin_bisection(G, max_iter=totalNumberOfIteration)
     
