@@ -76,9 +76,16 @@ def KernighanLinIterationAndEmbedding(G):
             graphEmbedding = np.append(graphEmbedding, 1)
         
         else:
+            print('girdi2')   
             nodeEmbeddings = getEmbedding(G) 
             nodeEmbeddingsArray = dictionaryToNpArray(nodeEmbeddings)
             graphEmbedding = np.mean(nodeEmbeddingsArray, axis=0)
             graphEmbedding = np.append(graphEmbedding, 0)
+    else:
+        print('girdi3')   
+        nodeEmbeddings = getEmbedding(G) 
+        nodeEmbeddingsArray = dictionaryToNpArray(nodeEmbeddings)
+        graphEmbedding = np.mean(nodeEmbeddingsArray, axis=0)
+        graphEmbedding = np.append(graphEmbedding, 0)
 
     return graphEmbedding    
