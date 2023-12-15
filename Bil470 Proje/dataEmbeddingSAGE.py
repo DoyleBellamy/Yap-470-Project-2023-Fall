@@ -26,7 +26,7 @@ def get_betweenness_centrality_feature(graph):
     return nx.betweenness_centrality(graph)
 
 # Get Average Clustering
-def get_average_clustring(graph):
+def get_average_clustring(G):
     return nx.average_clustering(G)
 
 
@@ -88,15 +88,15 @@ def getSAGEembedding(G):
     node_embeddings = model.predict(node_gen)
     
     # Adding extra features
-    np.append(node_embeddings, findArticulationPoints(G))
-    np.append(node_embeddings, calculate_density(G))
+    #np.append(node_embeddings, findArticulationPoints(G))
+    #np.append(node_embeddings, calculate_density(G))
     
     return node_embeddings[1]
 
 
 ### Partion Graph with Kernighan-lin
 
-def KernighanLinIterationAndSAGEembedding(G, minCutEdgeAmount):
+def KernighanLinIterationAndSAGEembedding(minCutEdgeAmount, G):
     
     didItBecomeConnected = False
     graphEmbedding = []

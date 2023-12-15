@@ -7,7 +7,7 @@ import networkx as nx
 
 import differentGraphs as dg
 
-from dataGenerationSAGE import KernighanLinIterationAndEmbedding
+from dataEmbeddingVec2 import KernighanLinIterationAndEmbedding
 from writeToExcel import writeToExcel
 from genEmbYesLabeledSAGE import yesLabeledEmbedding
 
@@ -220,3 +220,6 @@ def is_graph_appropriate(graph):
         return False
     
     return True
+
+
+dataGenerateAndSave(NODES_LOW_LIMIT, NODES_HIGH_LIMIT)

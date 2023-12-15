@@ -7,13 +7,13 @@ import networkx as nx
 
 import differentGraphs as dg
 
-from dataGenerationSAGE import KernighanLinIterationAndEmbedding
+from dataEmbeddingSAGE import KernighanLinIterationAndSAGEembedding
 from writeToExcel import writeToExcel
 from genEmbYesLabeledSAGE import yesLabeledEmbedding
 
 ### DATA GENERATION
 
-TOTAL_NUMBER_OF_GRAPH_FOR_EACH = 10
+TOTAL_NUMBER_OF_GRAPH_FOR_EACH = 5
 NODES_LOW_LIMIT = 60
 NODES_HIGH_LIMIT = 200
 
@@ -58,7 +58,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
         # Iterate to find the best kernighan lin matching
         # TODO buraya matematiği getirilecek
         totalNumberOfIteration = 10
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndSAGEembedding(totalNumberOfIteration,G)
 
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
@@ -85,7 +85,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
         
         totalNumberOfIteration = 10
         print(numberOfEdges)
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndSAGEembedding(totalNumberOfIteration,G)
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
@@ -113,7 +113,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             
         totalNumberOfIteration = 10
         print(radius)
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndSAGEembedding(totalNumberOfIteration,G)
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
@@ -136,7 +136,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             G = dg.generate_planar_graph(nodes=numberOfNodes,edges=numberOfEdges)
 
         totalNumberOfIteration = 10
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndSAGEembedding(totalNumberOfIteration,G)
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
@@ -144,7 +144,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             else : 
                 df = np.vstack((df, graphEmbedding))
     
-    
+    '''
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
     # Number 9 Square Grid Graph
     while i>0:
@@ -161,7 +161,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             G = dg.generate_square_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
 
         totalNumberOfIteration = 10
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndSAGEembedding(totalNumberOfIteration,G)
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
@@ -185,14 +185,15 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             G = dg.generate_triangular_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
 
         totalNumberOfIteration = 10
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndSAGEembedding(totalNumberOfIteration,G)
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
                 df = graphEmbedding
             else : 
                 df = np.vstack((df, graphEmbedding))
-
+    '''
+    
     writeToExcel(df)
     
     
@@ -220,3 +221,7 @@ def is_graph_appropriate(graph):
         return False
     
     return True
+
+
+
+dataGenerateAndSave(NODES_LOW_LIMIT, NODES_HIGH_LIMIT)

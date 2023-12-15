@@ -60,8 +60,8 @@ def KernighanLinIterationAndEmbedding(totalNumberOfIteration, G):
                 graphEmbedding = np.mean(nodeEmbeddingsArray, axis=0)
                 graphEmbedding = np.append(graphEmbedding, 1)
                 
-                np.append(graphEmbedding, findArticulationPoints(G))
-                np.append(graphEmbedding, calculate_density(G))
+                #np.append(graphEmbedding, findArticulationPoints(G))
+                #np.append(graphEmbedding, calculate_density(G))
                 
                 break
             
@@ -74,8 +74,8 @@ def KernighanLinIterationAndEmbedding(totalNumberOfIteration, G):
             graphEmbedding = np.mean(nodeEmbeddingsArray, axis=0)
             graphEmbedding = np.append(graphEmbedding, 0)
             
-            np.append(graphEmbedding, findArticulationPoints(G))
-            np.append(graphEmbedding, calculate_density(G))
+            #np.append(graphEmbedding, findArticulationPoints(G))
+            #np.append(graphEmbedding, calculate_density(G))
             
             break
     return didItBecomeConnected,graphEmbedding    
