@@ -96,9 +96,8 @@ def getSAGEembedding(G):
 
 ### Partion Graph with Kernighan-lin
 
-def KernighanLinIterationAndSAGEembedding(minCutEdgeAmount, G):
-    
-    didItBecomeConnected = False
+def KernighanLinIterationAndSAGEembedding(G):
+
     graphEmbedding = []
     
     total_vertices = G.number_of_nodes()
@@ -111,50 +110,28 @@ def KernighanLinIterationAndSAGEembedding(minCutEdgeAmount, G):
     else:
         totalNumberOfIteration = total_vertices * np.log10(total_vertices)
     
+    #for j in range(totalNumberOfIteration):
+        
+    partition = kernighan_lin_bisection(G, totalNumberOfIteration)
     
-    for j in range(totalNumberOfIteration):
+    G_partition1 = G.subgraph(partition[0])
+    G_partition2 = G.subgraph(partition[1])
+    
+    if nx.is_connected(G_partition1) and nx.is_connected(G_partition2):
+            
+        # check vertex constraint
+        partition_1_vertices = G_partition1.number_of_nodes()
+        partition_2_vertices = G_partition2.number_of_nodes()
         
-        partition = kernighan_lin_bisection(G, max_iter=10)
+        min_vertex_bound = total_vertices/2 - total_vertices*0.01
+        max_vertex_bound = total_vertices/2 + total_vertices*0.01
         
-        G_partition1 = G.subgraph(partition[0])
-        G_partition2 = G.subgraph(partition[1])
+        if ((min_vertex_bound <= partition_1_vertices <= max_vertex_bound)
+                and (min_vertex_bound <= partition_2_vertices <= max_vertex_bound)):
         
-        if nx.is_connected(G_partition1) and nx.is_connected(G_partition2):
-            
-            didItBecomeConnected = True
-            
-            total_edges = G.number_of_edges()
-            partition_1_edges = G_partition1.number_of_edges()
-            partition_2_edges = G_partition2.number_of_edges()
-            
-            edgeBetweenSubGraphs = total_edges-partition_1_edges - partition_2_edges
-        
-            
-            print(str(edgeBetweenSubGraphs) + "        " + str(j))
-            
-            if edgeBetweenSubGraphs < minCutEdgeAmount: 
-                
-                # check vertex constraint
-                partition_1_vertices = G_partition1.number_of_nodes()
-                partition_2_vertices = G_partition2.number_of_nodes()
-                
-                min_vertex_bound = total_vertices/2 - total_vertices*0.01
-                max_vertex_bound = total_vertices/2 + total_vertices*0.01
-                
-                if ((min_vertex_bound <= partition_1_vertices <= max_vertex_bound)
-                        and (min_vertex_bound <= partition_2_vertices <= max_vertex_bound)):
-                
-                    print('girdi1')   
-                    graphEmbeddingTemp = getSAGEembedding(G) 
-                    graphEmbedding = np.append(graphEmbeddingTemp, 1)
-                    break
-            
-        # Sona geldiysek ve hala Yes label alamadıysa No label ver
-        # Eger hicbir zaman connected bir sekilde bolunemediyse hicbir sey yapma
-        if j == totalNumberOfIteration-1 and didItBecomeConnected:
-            print('girdi2')
+            print('girdi1')   
             graphEmbeddingTemp = getSAGEembedding(G) 
-            graphEmbedding = np.append(graphEmbeddingTemp, 0)
-            break
+            graphEmbedding = np.append(graphEmbeddingTemp, 1)
+
         
-    return didItBecomeConnected, graphEmbedding  
+    return graphEmbedding  

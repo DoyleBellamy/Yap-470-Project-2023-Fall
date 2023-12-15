@@ -57,8 +57,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
         
         # Iterate to find the best kernighan lin matching
         # TODO buraya matematiği getirilecek
-        totalNumberOfIteration = 10
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
 
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
@@ -83,9 +82,8 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             numberOfEdges = rand.randint(1,2)
             G = dg.generate_barabasi_albert_graph(numberOfNodes,seed = seed,edges=numberOfEdges)
         
-        totalNumberOfIteration = 10
         print(numberOfEdges)
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
@@ -111,9 +109,8 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             print(nx.number_of_edges(G))
             print(nx.number_of_nodes(G))
             
-        totalNumberOfIteration = 10
         print(radius)
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
@@ -135,8 +132,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             numberOfEdges = rand.randint(int(numberOfNodes*1.15),int(numberOfNodes*1.3))
             G = dg.generate_planar_graph(nodes=numberOfNodes,edges=numberOfEdges)
 
-        totalNumberOfIteration = 10
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
@@ -160,8 +156,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
             G = dg.generate_square_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
 
-        totalNumberOfIteration = 10
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
@@ -184,8 +179,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
             G = dg.generate_triangular_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
 
-        totalNumberOfIteration = 10
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(totalNumberOfIteration,G)
+        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
         if didItBecomeConnected and len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
