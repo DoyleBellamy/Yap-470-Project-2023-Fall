@@ -51,15 +51,14 @@ def KernighanLinIterationAndEmbedding(G):
     else:
         totalNumberOfIteration = total_vertices * np.log10(total_vertices)
         
-    #for j in range(totalNumberOfIteration):
+    total_vertices = int(total_vertices)
     partition = kernighan_lin_bisection(G, max_iter=totalNumberOfIteration)
     
     G_partition1 = G.subgraph(partition[0])
     G_partition2 = G.subgraph(partition[1])
     
     if nx.is_connected(G_partition1) and nx.is_connected(G_partition2):
-            
-        # check vertex constraint
+        
         partition_1_vertices = G_partition1.number_of_nodes()
         partition_2_vertices = G_partition2.number_of_nodes()
         
@@ -68,7 +67,6 @@ def KernighanLinIterationAndEmbedding(G):
         
         if ((min_vertex_bound <= partition_1_vertices <= max_vertex_bound)
                 and (min_vertex_bound <= partition_2_vertices <= max_vertex_bound)):
-            
             print('girdi1')   
             nodeEmbeddings = getEmbedding(G) 
             nodeEmbeddingsArray = dictionaryToNpArray(nodeEmbeddings)

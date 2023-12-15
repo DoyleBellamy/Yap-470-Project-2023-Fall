@@ -12,7 +12,7 @@ from writeToExcel import writeToExcel
 
 ### DATA GENERATION
 
-TOTAL_NUMBER_OF_GRAPH_FOR_EACH = 10
+TOTAL_NUMBER_OF_GRAPH_FOR_EACH = 1
 NODES_LOW_LIMIT = 60
 NODES_HIGH_LIMIT = 200
 
@@ -23,7 +23,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
     numberOfNodes = rand.randint(numberOfNodesLowest,numberOfNodesHighest)
     
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH    
-    # Number 2 watts_strogatz
+    # Number 1 watts_strogatz
     while i>0:
         k_neighbors = rand.randint(2,4)
         probability = rand.random()
@@ -53,7 +53,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
     
     
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
-    # Number 3 Barabasi 
+    # Number 2 Barabasi 
     while i>0:
         numberOfNodes = rand.randint(int(numberOfNodesLowest*0.2),int(numberOfNodesHighest*0.6))
         numberOfEdges = rand.randint(1,2)
@@ -77,7 +77,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
  
 
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
-    # Number 5 Geometric_graph
+    # Number 3 Geometric_graph
     while i>0:
         radius = 0.119 + (0.1194 - 0.119)* rand.random()
         numberOfNodes = rand.randint(numberOfNodesLowest,numberOfNodesHighest)
@@ -102,7 +102,7 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
 
    
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
-    # Number 6 Planar_graph
+    # Number 4 Planar_graph
     while i>0:
         numberOfNodes = rand.randint(numberOfNodesLowest,numberOfNodesHighest)
         numberOfEdges = rand.randint(int(numberOfNodes*1.15),int(numberOfNodes*1.3))
@@ -122,17 +122,17 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
     
     
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
-    # Number 9 Square Grid Graph
+    # Number 5 Square Grid Graph
     while i>0:
-        max = 8
-        min = 3
+        max = 1.3
+        min = 0.8
         numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
-        columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
-        G = dg.generate_square_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
+        columnRatio = int(np.sqrt(numberOfNodes))
+        G = dg.generate_square_grid_graph(rows=columnRatio,columns=columnRatio)
         while not nx.is_connected(G):
             numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
-            columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
-            G = dg.generate_square_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
+            columnRatio = int(np.sqrt(numberOfNodes))
+            G = dg.generate_square_grid_graph(rows=columnRatio,columns=columnRatio)
 
         graphEmbedding = KernighanLinIterationAndEmbedding(G)
         if len(graphEmbedding)>0:
@@ -142,7 +142,8 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             else : 
                 df = np.vstack((df, graphEmbedding))
     
-    # Number 10 Triangular Grid Graph
+    '''
+    # Number 6 Triangular Grid Graph
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH
     while i>0:
         max = 8
@@ -162,7 +163,8 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
                 df = graphEmbedding
             else : 
                 df = np.vstack((df, graphEmbedding))
-
+    '''
+    
     writeToExcel(df)
     
     
