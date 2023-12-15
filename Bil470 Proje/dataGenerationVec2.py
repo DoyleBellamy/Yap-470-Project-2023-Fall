@@ -42,9 +42,9 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
         
         # Iterate to find the best kernighan lin matching
         # TODO buraya matematiği getirilecek
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
+        graphEmbedding = KernighanLinIterationAndEmbedding(G)
 
-        if didItBecomeConnected and len(graphEmbedding)>0:
+        if len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
                 df = graphEmbedding
@@ -67,9 +67,8 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             numberOfEdges = rand.randint(1,2)
             G = dg.generate_barabasi_albert_graph(numberOfNodes,seed = seed,edges=numberOfEdges)
         
-        print(numberOfEdges)
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
-        if didItBecomeConnected and len(graphEmbedding)>0:
+        graphEmbedding = KernighanLinIterationAndEmbedding(G)
+        if len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
                 df = graphEmbedding
@@ -91,12 +90,10 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
             radius = 0.119 + (0.1194 - 0.119)* rand.random()
             numberOfNodes = rand.randint(numberOfNodesLowest,numberOfNodesHighest)
             G = dg.generate_random_geometric_graph(numberOfNodes,seed = seed, radius=radius)
-            print(nx.number_of_edges(G))
-            print(nx.number_of_nodes(G))
+
             
-        print(radius)
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
-        if didItBecomeConnected and len(graphEmbedding)>0:
+        graphEmbedding = KernighanLinIterationAndEmbedding(G)
+        if len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
                 df = graphEmbedding
@@ -110,15 +107,13 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
         numberOfNodes = rand.randint(numberOfNodesLowest,numberOfNodesHighest)
         numberOfEdges = rand.randint(int(numberOfNodes*1.15),int(numberOfNodes*1.3))
         G = dg.generate_planar_graph(nodes=numberOfNodes,edges=numberOfEdges)
-        print(nx.number_of_edges(G))
-        print(nx.number_of_nodes(G))
         while not nx.is_connected(G):
             numberOfNodes = rand.randint(numberOfNodesLowest,numberOfNodesHighest)
             numberOfEdges = rand.randint(int(numberOfNodes*1.15),int(numberOfNodes*1.3))
             G = dg.generate_planar_graph(nodes=numberOfNodes,edges=numberOfEdges)
 
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
-        if didItBecomeConnected and len(graphEmbedding)>0:
+        graphEmbedding = KernighanLinIterationAndEmbedding(G)
+        if len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
                 df = graphEmbedding
@@ -134,15 +129,13 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
         numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
         columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
         G = dg.generate_square_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
-        print(nx.number_of_edges(G))
-        print(nx.number_of_nodes(G))
         while not nx.is_connected(G):
             numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
             columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
             G = dg.generate_square_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
 
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
-        if didItBecomeConnected and len(graphEmbedding)>0:
+        graphEmbedding = KernighanLinIterationAndEmbedding(G)
+        if len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
                 df = graphEmbedding
@@ -157,15 +150,13 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
         numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
         columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
         G = dg.generate_triangular_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
-        print(nx.number_of_edges(G))
-        print(nx.number_of_nodes(G))
         while not nx.is_connected(G):
             numberOfNodes = rand.randint(int(min *numberOfNodesLowest ),int(max*numberOfNodesHighest))
             columnRatio = rand.randint(2,int(numberOfNodes/2)+1)
             G = dg.generate_triangular_grid_graph(rows=int(numberOfNodes/columnRatio),columns=columnRatio)
 
-        didItBecomeConnected, graphEmbedding = KernighanLinIterationAndEmbedding(G)
-        if didItBecomeConnected and len(graphEmbedding)>0:
+        graphEmbedding = KernighanLinIterationAndEmbedding(G)
+        if len(graphEmbedding)>0:
             i = i-1
             if len(df) == 0:
                 df = graphEmbedding

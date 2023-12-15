@@ -52,7 +52,7 @@ def KernighanLinIterationAndEmbedding(G):
         totalNumberOfIteration = total_vertices * np.log10(total_vertices)
         
     #for j in range(totalNumberOfIteration):
-    partition = kernighan_lin_bisection(G, totalNumberOfIteration)
+    partition = kernighan_lin_bisection(G, max_iter=totalNumberOfIteration)
     
     G_partition1 = G.subgraph(partition[0])
     G_partition2 = G.subgraph(partition[1])
@@ -74,5 +74,11 @@ def KernighanLinIterationAndEmbedding(G):
             nodeEmbeddingsArray = dictionaryToNpArray(nodeEmbeddings)
             graphEmbedding = np.mean(nodeEmbeddingsArray, axis=0)
             graphEmbedding = np.append(graphEmbedding, 1)
-            
+        
+        else:
+            nodeEmbeddings = getEmbedding(G) 
+            nodeEmbeddingsArray = dictionaryToNpArray(nodeEmbeddings)
+            graphEmbedding = np.mean(nodeEmbeddingsArray, axis=0)
+            graphEmbedding = np.append(graphEmbedding, 0)
+
     return graphEmbedding    

@@ -110,9 +110,7 @@ def KernighanLinIterationAndSAGEembedding(G):
     else:
         totalNumberOfIteration = total_vertices * np.log10(total_vertices)
     
-    #for j in range(totalNumberOfIteration):
-        
-    partition = kernighan_lin_bisection(G, totalNumberOfIteration)
+    partition = kernighan_lin_bisection(G, max_iter=totalNumberOfIteration)
     
     G_partition1 = G.subgraph(partition[0])
     G_partition2 = G.subgraph(partition[1])
