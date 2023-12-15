@@ -9,7 +9,7 @@ import differentGraphs as dg
 
 from dataEmbeddingVec2 import KernighanLinIterationAndEmbedding
 from writeToExcel import writeToExcel
-from genEmbYesLabeledSAGE import yesLabeledEmbedding
+from genEmbYesLabeledVec2 import yesLabeledEmbedding
 
 ### DATA GENERATION
 
