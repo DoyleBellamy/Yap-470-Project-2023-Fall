@@ -23,20 +23,6 @@ def dataGenerateAndSave(numberOfNodesLowest, numberOfNodesHighest):
     seed = rand.randint(1,1000000)
     numberOfNodes = rand.randint(numberOfNodesLowest,numberOfNodesHighest)
     
-    # Number 1 yesLabeledGraph
-    # TODO Burada edges between partition'a da random'lık ekle
-    i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH*4
-    while i>0:
-        numberOfNodes = rand.randint(numberOfNodesLowest,numberOfNodesHighest)
-        graphEmbedding = yesLabeledEmbedding(int(numberOfNodes/2), edgesBetweenPartitions=3)
-        graphEmbedding = np.append(graphEmbedding, 1)
-        if len(df) == 0:
-            df = graphEmbedding
-        else : 
-            df = np.vstack((df, graphEmbedding))
-        i = i-1
-    
-    
     i = TOTAL_NUMBER_OF_GRAPH_FOR_EACH    
     # Number 2 watts_strogatz
     while i>0:
