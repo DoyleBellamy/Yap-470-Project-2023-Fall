@@ -118,20 +118,27 @@ def KernighanLinIterationAndSAGEembedding(G):
     G_partition2 = G.subgraph(partition[1])
     
     if nx.is_connected(G_partition1) and nx.is_connected(G_partition2):
-            
-        # check vertex constraint
-        partition_1_vertices = G_partition1.number_of_nodes()
-        partition_2_vertices = G_partition2.number_of_nodes()
-        
-        min_vertex_bound = total_vertices/2 - total_vertices*0.01
-        max_vertex_bound = total_vertices/2 + total_vertices*0.01
-        
-        if ((min_vertex_bound <= partition_1_vertices <= max_vertex_bound)
-                and (min_vertex_bound <= partition_2_vertices <= max_vertex_bound)):
-        
-            print('girdi1')   
-            graphEmbeddingTemp = getSAGEembedding(G) 
-            graphEmbedding = np.append(graphEmbeddingTemp, 1)
+      
+       partition_1_vertices = G_partition1.number_of_nodes()
+       partition_2_vertices = G_partition2.number_of_nodes()
+      
+       min_vertex_bound = total_vertices/2 - total_vertices*0.01
+       max_vertex_bound = total_vertices/2 + total_vertices*0.01
+      
+       if ((min_vertex_bound <= partition_1_vertices <= max_vertex_bound)
+               and (min_vertex_bound <= partition_2_vertices <= max_vertex_bound)):
+           print('girdi1')  
+           nodeEmbeddings = getSAGEembedding(G)
+           graphEmbedding = np.append(nodeEmbeddings, 1)
+      
+       else:
+           print('girdi2')  
+           nodeEmbeddings = getSAGEembedding(G)
+           graphEmbedding = np.append(nodeEmbeddings, 0)
+    else:
+        print('girdi3')  
+        nodeEmbeddings = getSAGEembedding(G)
+        graphEmbedding = np.append(nodeEmbeddings, 0)
 
         
     return graphEmbedding  
